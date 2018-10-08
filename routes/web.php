@@ -18,7 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/admin', 'RoleController@admin')->middleware('role');
+Route::get('/admin', 'RoleController@admin');
 Route::post('/delete/{id}', 'RoleController@delete')->middleware('role');
 Route::post('/save/{id}', 'RoleController@save');
 Route::post('/create', 'RoleController@create');
+Route::post('/image/{id}', 'RoleController@changeImage');

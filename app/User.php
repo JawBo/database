@@ -30,5 +30,19 @@ class User extends Authenticatable
     public function role(){
 
         return $this->belongsTo('App\Role');
+        
+    }
+    public function profil(){
+
+        return $this->belongsTo('App\Profil');
+        
+    }
+    public function image(){
+
+        return $this->belongsTo('App\Image');
+        
+    }
+    public function isAdmin(){
+        return false;
     }
 }

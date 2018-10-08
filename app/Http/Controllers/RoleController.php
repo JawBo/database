@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\UserCreate;
 use Illuminate\Support\Facades\Storage; 
 use App\User;
 use App\Role;
@@ -10,6 +11,8 @@ class RoleController extends Controller
 {
     public function admin()
     {
+        $this->authorize('view-user');
+
         $users = User::with('role')->get();
         return view('admin',compact("users"));
     }
@@ -27,16 +30,25 @@ class RoleController extends Controller
         $item->save();
         return redirect('/admin');
     }
-    public function create(Request $request)
+    public function create(UserCreate $request)
     {
-        $path=$request->file('image')->store('public');
+        // $path=$request->file('image')->store('public');
         $item = new User;
-        $item->image = $path;
+        // $item->image = $path;
         $item->name=$request->name;
         $item->email = $request->email;
         $item->password=$request->password;
         $item->save();
         return redirect ('/admin');
+    }
+    public function changeImage(Request $request, $id){
+
+        
+        $item=User::find($id);
+        $item->image_id=$request->imgid;
+        $item->save();
+        return redirect('/admin');
+
     }
 }
 
